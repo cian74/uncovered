@@ -139,7 +139,7 @@ const LowPopularityTrack = () => {
     return (
         <div className="max-w-md mx-auto p-4 bg-gray-50 rounded-lg shadow-md">
             <h1 className="text-2xl font-bold mb-4 text-center">Obscure Music Finder</h1>
-            
+    
             {loading ? (
                 <div className="flex justify-center items-center h-40">
                     <p className="text-gray-600">Searching the depths of Spotify...</p>
@@ -155,46 +155,49 @@ const LowPopularityTrack = () => {
                     </button>
                 </div>
             ) : track ? (
-                <div className="flex flex-col items-center">
-                    {track.album.images.length > 0 && (
-                        <img 
-                            src={track.album.images[0].url} 
-                            alt={track.album.name} 
-                            className="w-64 h-64 object-cover rounded-md shadow-lg mb-4" 
-                        />
-                    )}
-                    <div className="flex">
-                        <PopularityGauge popularity={track.popularity}/>
+                <div className="flex items-center">  
+                    <div className="mr-4">
+                        <PopularityGauge popularity={track.popularity} />
+                    </div>
+                    <div className="flex flex-col items-start">
+                        {track.album.images.length > 0 && (
+                            <img 
+                                src={track.album.images[0].url} 
+                                alt={track.album.name} 
+                                className="w-64 h-64 object-cover rounded-md shadow-lg mb-4" 
+                            />
+                        )}
                         <h2 className="text-xl font-semibold mb-1">{track.name}</h2>
                         <h3 className="text-md text-gray-700 mb-3">by {track.artists.map(a => a.name).join(", ")}</h3>
                         <p className="text-sm text-gray-500 mb-1">From the album: {track.album.name}</p>
+                        
+                        {track.preview_url && (
+                            <audio controls className="w-full mb-4">
+                                <source src={track.preview_url} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
+                        )}
+                        
+                        <a 
+                            href={track.external_urls.spotify} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
+                        >
+                            Listen on Spotify
+                        </a>
+                        
+                        <button 
+                            onClick={() => fetchRandomLowPopularityTrack()} 
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Discover Another Track
+                        </button>
+                        
+                        <div className="text-xs text-gray-400 mt-4">
+                            Search attempts: {searchStats.attempts} | Artists checked: {searchStats.artistsChecked}
+                        </div>
                     </div> 
-                    {track.preview_url && (
-                        <audio controls className="w-full mb-4">
-                            <source src={track.preview_url} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    )}
-                    
-                    <a 
-                        href={track.external_urls.spotify} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
-                    >
-                        Listen on Spotify
-                    </a>
-                    
-                    <button 
-                        onClick={() => fetchRandomLowPopularityTrack()} 
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Discover Another Track
-                    </button>
-                    
-                    <div className="text-xs text-gray-400 mt-4">
-                        Search attempts: {searchStats.attempts} | Artists checked: {searchStats.artistsChecked}
-                    </div>
                 </div>
             ) : (
                 <div className="text-center p-4">

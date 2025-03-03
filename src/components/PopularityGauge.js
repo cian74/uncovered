@@ -8,34 +8,38 @@ const PopularityGauge = ({popularity}) => {
     useEffect(() => {
         if (popularity === null) return;
 
-        const width = 150, height = 100, radius = width / 2;
+        const width = 40, height = 100;
+        const reversedPopularity = 100 - popularity;
         const svg = d3.select(gaugeRef.current)
             .attr("width", width)
             .attr("height", height);
 
-        svg.selectAll("*").remove(); // Clear previous render
+        svg.selectAll("*").remove(); 
 
-        const arc = d3.arc()
-            .innerRadius(radius - 15)
-            .outerRadius(radius)
-            .startAngle(-Math.PI / 2)
-            .endAngle((Math.PI / 2) * (popularity / 100) - Math.PI / 2);
+        svg.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "#ddd");
 
-        svg.append("path")
-            .attr("d", arc)
-            .attr("fill", "green")
-            .attr("transform", `translate(${width / 2},${height})`);
-
+        svg.append("rect")
+            .attr("x", 0)
+            .attr("y", (height * reversedPopularity) / 100)
+            .attr("width", width)
+            .attr("height", (height * popularity) / 100) 
+            .attr("fill", "green");
+        
         svg.append("text")
             .attr("x", width / 2)
-            .attr("y", height - 20)
+            .attr("y", height + 15) 
             .attr("text-anchor", "middle")
-            .attr("font-size", "16px")
+            .attr("font-size", "12px")
             .attr("fill", "black")
-            .text(`${popularity}%`);
+            .text(`${reversedPopularity}%`);
     }, [popularity]);
 
-    return <svg ref={gaugeRef}></svg>;
+    return <svg ref={gaugeRef}></svg>
 };
 
 export default PopularityGauge;
