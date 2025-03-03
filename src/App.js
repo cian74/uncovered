@@ -1,5 +1,5 @@
 import React from "react";
-import LowPopulariyTrack from "./LowPopularityTrack";
+import LowPopulariyTrack from "./components/LowPopularityTrack";
 
 function App() {
   return <LowPopulariyTrack/>;

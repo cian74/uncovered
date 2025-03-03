@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PopularityGauge from "./PopularityGauge";
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
@@ -111,7 +112,9 @@ const LowPopularityTrack = () => {
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             );
             
-            // Check if it's a low popularity track (0-5 popularity)
+            console.log(`Track found: ${fullTrackDetails.name} by ${fullTrackDetails.artists.map(a => a.name).join(", ")}`);
+            console.log(`Track popularity: ${fullTrackDetails.popularity}`);
+
             if (fullTrackDetails.popularity <= 5) {
                 setTrack(fullTrackDetails);
             } else {
@@ -160,11 +163,12 @@ const LowPopularityTrack = () => {
                             className="w-64 h-64 object-cover rounded-md shadow-lg mb-4" 
                         />
                     )}
-                    <h2 className="text-xl font-semibold mb-1">{track.name}</h2>
-                    <h3 className="text-md text-gray-700 mb-3">by {track.artists.map(a => a.name).join(", ")}</h3>
-                    <p className="text-sm text-gray-500 mb-1">From the album: {track.album.name}</p>
-                    <p className="text-sm text-gray-500 mb-4">Popularity: {track.popularity}/100</p>
-                    
+                    <div className="flex">
+                        <PopularityGauge popularity={track.popularity}/>
+                        <h2 className="text-xl font-semibold mb-1">{track.name}</h2>
+                        <h3 className="text-md text-gray-700 mb-3">by {track.artists.map(a => a.name).join(", ")}</h3>
+                        <p className="text-sm text-gray-500 mb-1">From the album: {track.album.name}</p>
+                    </div> 
                     {track.preview_url && (
                         <audio controls className="w-full mb-4">
                             <source src={track.preview_url} type="audio/mpeg" />
