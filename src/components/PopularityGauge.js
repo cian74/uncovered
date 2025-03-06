@@ -7,7 +7,7 @@ const PopularityGauge = ({ popularity }) => {
     useEffect(() => {
         if (popularity === null) return;
 
-        const width = 30, height = 256; 
+        const width = 30, height = 640; 
         const svg = d3.select(gaugeRef.current)
             .attr("width", width)
             .attr("height", height);
@@ -23,9 +23,9 @@ const PopularityGauge = ({ popularity }) => {
 
         svg.append("rect")
             .attr("x", 0)
-            .attr("y", height - (height * popularity) / 100) 
+            .attr("y", (height * popularity) / 100) 
             .attr("width", width)
-            .attr("height", (height * popularity) / 100)
+            .attr("height", height - (height * popularity) / 100)
             .attr("fill", "green");
         
         svg.append("text")
