@@ -52,7 +52,6 @@ const LowPopularityTrack = () => {
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
 
-
       const { data: artistData } = await axios.get(
         `https://api.spotify.com/v1/search?q=genre:${randomGenre}&type=artist&limit=50`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -64,10 +63,11 @@ const LowPopularityTrack = () => {
       if (lowFollowerArtists.length === 0)
         return fetchRandomLowPopularityTrack();
 
-      const randomArtist =
-        lowFollowerArtists[
-          Math.floor(Math.random() * lowFollowerArtists.length)
-        ];
+      const shuffledArtists = lowFollowerArtists.sort(
+        () => 0.5 - Math.random()
+      );
+      const randomArtist = shuffledArtists[0];
+
       console.log(
         `Selected artist: ${randomArtist.name} (Followers: ${randomArtist.followers.total})`
       );
@@ -131,9 +131,11 @@ const LowPopularityTrack = () => {
         </h1>
 
         {loading ? (
-          <p className="text-gray-600 text-center">
-            Searching the depths of Spotify...
-          </p>
+          <div className="text-center">
+            <p className="text-gray-600">Searching the depths of Spotify...</p>
+            {/* Add animation effect while loading */}
+            <div className="loader"></div>
+          </div>
         ) : error ? (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <p>{error}</p>
@@ -145,10 +147,15 @@ const LowPopularityTrack = () => {
             </button>
           </div>
         ) : track ? (
-          <div>
+          <div className={`fade-in`}>
             {/* Popularity Gauge & Album Cover Side by Side */}
-            <div className="flex items-center w-full">
-              <PopularityGauge popularity={track.popularity} />
+            <div className="track-layout">
+              {/* Popularity Gauge */}
+              <div className="flex-shrink-0">
+                {track && <PopularityGauge popularity={track.popularity} />}
+              </div>
+
+              {/* Album Cover */}
               {track.album.images.length > 0 && (
                 <img
                   src={track.album.images[0].url}
@@ -158,7 +165,7 @@ const LowPopularityTrack = () => {
               )}
             </div>
 
-            {/* Track Details (Centered Below) */}
+            {/* Track Details */}
             <div className="track-details">
               <h2 className="text-xl font-semibold">{track.name}</h2>
               <h3 className="text-md text-gray-700 mb-3">
@@ -187,9 +194,11 @@ const LowPopularityTrack = () => {
               Listen on Spotify
             </a>
 
-            {/* New Track Button */}
             <button
-              onClick={() => fetchRandomLowPopularityTrack()}
+              onClick={() => {
+                setLoading(true);
+                fetchRandomLowPopularityTrack();
+              }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
             >
               Discover Another Track
