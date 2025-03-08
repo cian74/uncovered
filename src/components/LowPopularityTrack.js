@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import PopularityGauge from "./PopularityGauge";
 import "../App.css";
@@ -8,6 +8,8 @@ const LowPopularityTrack = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState("");
+
+  const visited = useRef([]);
 
   useEffect(() => {
     const getSpotifyToken = async () => {
@@ -44,10 +46,32 @@ const LowPopularityTrack = () => {
     try {
       const genres = [
         "ambient",
-        "lo-fi",
-        "experimental",
-        "psychedelic",
-        "dark-ambient",
+         "experimental",
+         "noise",
+         "drone",
+         "field-recording",
+         "free-folk",
+         "free-jazz",
+         "sound-art",
+         "musique-concrete",
+         "lowercase",
+         "outsider",
+         "lo-fi",
+         "found-sound",
+         "avant-garde",
+         "minimal-techno",
+         "deep-techno",
+         "experimental",
+         "psychedelic",
+         "dark-ambient",
+         "vaporwave",
+         "indie-folk",
+         "psychedelic-folk",
+         "freak-folk",
+         "slowcore",
+         "post-minimalism",
+         "new-weird-america",
+         "circuit-bending",
       ];
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
@@ -93,6 +117,10 @@ const LowPopularityTrack = () => {
       const randomTrackId =
         albumTracks.items[Math.floor(Math.random() * albumTracks.items.length)]
           .id;
+
+      if(visited.current.includes(randomTrackId)){
+        return fetchRandomLowPopularityTrack();
+      }
 
       const { data: fullTrackDetails } = await axios.get(
         `https://api.spotify.com/v1/tracks/${randomTrackId}`,
