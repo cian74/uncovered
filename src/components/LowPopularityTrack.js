@@ -82,7 +82,7 @@ const LowPopularityTrack = () => {
       );
 
       const lowFollowerArtists = artistData.artists.items.filter(
-        (artist) => artist.followers.total < 1000
+        (artist) => artist.followers.total < 5000 
       );
       if (lowFollowerArtists.length === 0)
         return fetchRandomLowPopularityTrack();
