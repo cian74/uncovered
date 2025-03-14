@@ -46,32 +46,32 @@ const LowPopularityTrack = () => {
     try {
       const genres = [
         "ambient",
-         "experimental",
-         "noise",
-         "drone",
-         "field-recording",
-         "free-folk",
-         "free-jazz",
-         "sound-art",
-         "musique-concrete",
-         "lowercase",
-         "outsider",
-         "lo-fi",
-         "found-sound",
-         "avant-garde",
-         "minimal-techno",
-         "deep-techno",
-         "experimental",
-         "psychedelic",
-         "dark-ambient",
-         "vaporwave",
-         "indie-folk",
-         "psychedelic-folk",
-         "freak-folk",
-         "slowcore",
-         "post-minimalism",
-         "new-weird-america",
-         "circuit-bending",
+        "experimental",
+        "noise",
+        "drone",
+        "field-recording",
+        "free-folk",
+        "free-jazz",
+        "sound-art",
+        "musique-concrete",
+        "lowercase",
+        "outsider",
+        "lo-fi",
+        "found-sound",
+        "avant-garde",
+        "minimal-techno",
+        "deep-techno",
+        "experimental",
+        "psychedelic",
+        "dark-ambient",
+        "vaporwave",
+        "indie-folk",
+        "psychedelic-folk",
+        "freak-folk",
+        "slowcore",
+        "post-minimalism",
+        "new-weird-america",
+        "circuit-bending",
       ];
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
@@ -82,7 +82,7 @@ const LowPopularityTrack = () => {
       );
 
       const lowFollowerArtists = artistData.artists.items.filter(
-        (artist) => artist.followers.total < 5000 
+        (artist) => artist.followers.total < 5000
       );
       if (lowFollowerArtists.length === 0)
         return fetchRandomLowPopularityTrack();
@@ -118,7 +118,7 @@ const LowPopularityTrack = () => {
         albumTracks.items[Math.floor(Math.random() * albumTracks.items.length)]
           .id;
 
-      if(visited.current.includes(randomTrackId)){
+      if (visited.current.includes(randomTrackId)) {
         return fetchRandomLowPopularityTrack();
       }
 
@@ -154,9 +154,7 @@ const LowPopularityTrack = () => {
   return (
     <div className="container">
       <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-center">
-          Obscure Music Finder
-        </h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">Uncover</h1>
 
         {loading ? (
           <div className="text-center">
