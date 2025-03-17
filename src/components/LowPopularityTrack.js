@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import PopularityGauge from "./PopularityGauge";
+import saveSong from "./SaveSong";
+import Login from "./Login";
 import "../App.css";
 
 const LowPopularityTrack = () => {
@@ -8,6 +10,7 @@ const LowPopularityTrack = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState("");
+  const [user,setUser] = useState(null);
 
   const visited = useRef([]);
 
@@ -242,6 +245,12 @@ const LowPopularityTrack = () => {
           </div>
         )}
       </div>
+      <div>
+    <Login setUser={setUser} />
+    {track && (
+      <button onClick={() => saveSong(user, track)}>Like this Song</button>
+    )}
+  </div>
     </div>
   );
 };
