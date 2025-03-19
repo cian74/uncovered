@@ -4,7 +4,7 @@ const NavigationBar = () =>{
     return(
         <Navbar>
             <Container>
-                <Navbar.Brand href="/">Uncover</Navbar.Brand>
+                <h1><Navbar.Brand href="/">Uncover</Navbar.Brand></h1>
                 <Nav>
                     <Nav.Link></Nav.Link>
                     <Nav.Link></Nav.Link>

@@ -95,6 +95,12 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+.navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 150%;
+}
+
 .loader {
   margin: 20px auto;
   width: 40px;

@@ -11,8 +11,6 @@ function App() {
         <Route path="/" element={<LowPopulariyTrack/>}/>
       </Routes>
     </Router>
-    
- 
 ); 
 }
 

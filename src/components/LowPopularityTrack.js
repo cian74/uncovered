@@ -138,7 +138,12 @@ const LowPopularityTrack = () => {
       console.log(`Track popularity: ${fullTrackDetails.popularity}`);
 
       if (fullTrackDetails.popularity <= 5) {
+        visited.current.push({
+          id: fullTrackDetails.id,
+          name: fullTrackDetails.name
+        });
         setTrack(fullTrackDetails);
+        console.log("visited:", visited.current);
       } else {
         return fetchRandomLowPopularityTrack();
       }
@@ -154,10 +159,10 @@ const LowPopularityTrack = () => {
     if (accessToken) fetchRandomLowPopularityTrack();
   }, [accessToken]);
 
+
   return (
     <div className="container">
       <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-center">Uncover</h1>
 
         {loading ? (
           <div className="text-center">
