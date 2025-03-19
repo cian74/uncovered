@@ -1,4 +1,5 @@
 import { Container,Nav,Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const NavigationBar = () =>{
     return(
@@ -6,10 +7,8 @@ const NavigationBar = () =>{
             <Container>
                 <h1><Navbar.Brand href="/">Uncover</Navbar.Brand></h1>
                 <Nav>
-                    <Nav.Link></Nav.Link>
-                    <Nav.Link></Nav.Link>
-                    <Nav.Link></Nav.Link>
-                    <Nav.Link></Nav.Link>
+                <Nav.Link as={Link} to="/liked-songs">Liked Songs</Nav.Link>
+
                 </Nav>
             </Container>
         </Navbar>
