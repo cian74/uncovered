@@ -1,18 +1,46 @@
-import { Container,Nav,Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { useState, useEffect } from "react";
 
-const NavigationBar = () =>{
-    return(
-        <Navbar>
-            <Container>
-                <h1><Navbar.Brand href="/">Uncover</Navbar.Brand></h1>
-                <Nav>
-                <Nav.Link as={Link} to="/liked-songs">Liked Songs</Nav.Link>
+const NavigationBar = () => {
+  const auth = getAuth();
+  const [user, setUser] = useState(null);
 
-                </Nav>
-            </Container>
-        </Navbar>
-    );
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, [auth]);
+
+  return (
+    <Navbar bg="light" expand="lg" className="px-4">
+      <Container fluid style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+        <Navbar.Brand as={Link} to="/" className="fs-3 fw-bold">
+          Uncover
+        </Navbar.Brand>
+
+        <Nav.Link as={Link} to="/liked-songs">
+        <Nav style={{ display: 'flex', alignItems: 'center' }}>
+          {user && (
+            <img
+              src={user.photoURL || "/default-profile.png"} // Fallback image
+              alt="Profile"
+              className="rounded-circle"
+              style={{
+                width: "40px",
+                height: "40px",
+                objectFit: "cover",
+                cursor: "pointer",
+              }}
+            />
+          )}
+        </Nav>
+        </Nav.Link>
+      </Container>
+    </Navbar>
+  );
 };
 
 export default NavigationBar;

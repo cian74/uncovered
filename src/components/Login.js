@@ -21,7 +21,6 @@ const Login = ({ setUser }) => {
       console.error("Logout failed", err);
     }
   };
-  
 
   return (
     <div>

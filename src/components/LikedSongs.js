@@ -10,8 +10,8 @@ const LikedSongs = ({ user }) => {
   useEffect(() => {
     if(!user)  {
         setSongList([]);
-        return;
-    }
+        return; 
+    }   
     const fetchLikedSongs = async () => {
       try {
         const auth = getAuth();
@@ -49,7 +49,6 @@ const LikedSongs = ({ user }) => {
     fetchLikedSongs();
   }, []);
 
-  //return some div
   return (
     <div className="container">
       <h2 className="text-xl font-semibold mb-4">Your Liked Songs</h2>
@@ -62,7 +61,7 @@ const LikedSongs = ({ user }) => {
         <ul className="list-disc pl-5">
           {songList.map((song) => (
             <li key={song.id}>
-              <strong>{song.name}</strong> by {song.artist}
+              <strong>{song.trackName}</strong> by {song.artist}
             </li>
           ))}
         </ul>
