@@ -4,6 +4,10 @@ import PopularityGauge from "./PopularityGauge";
 import saveSong from "./SaveSong";
 import Login from "./Login";
 import "../App.css";
+import { getAuth } from "firebase/auth";
+import { getDoc, setDoc, updateDoc, doc, increment } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { auth } from "../firebaseConfig";
 
 const LowPopularityTrack = ({ user }) => {
   const [track, setTrack] = useState(null);
@@ -158,12 +162,12 @@ const LowPopularityTrack = ({ user }) => {
 
       //checks if track has popularity score <= 5
       if (fullTrackDetails.popularity <= 5) {
-        //pushes current track details 
+        //pushes current track details
         visited.current.push({
           id: fullTrackDetails.id,
           name: fullTrackDetails.name,
         });
-        //sets track details to display 
+        //sets track details to display
         setTrack(fullTrackDetails);
         console.log("visited:", visited.current);
       } else {
@@ -175,7 +179,6 @@ const LowPopularityTrack = ({ user }) => {
       setError(`Error: ${err.message}`);
     }
 
-
     setLoading(false);
   };
 
@@ -183,6 +186,58 @@ const LowPopularityTrack = ({ user }) => {
   useEffect(() => {
     if (accessToken) fetchRandomLowPopularityTrack();
   }, [accessToken]);
+
+  const updateUserSwipes = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.log("no user found");
+    }
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        totalSwipes: 0,
+      });
+    }
+
+    //updates document info
+    //automatically creates the users doc if it doesnt exist
+    await updateDoc(userRef, {
+      totalSwipes: increment(1),
+      totalLikedSongs: 0,
+    });
+    console.log("DEBUG: swipe");
+  };
+
+  const updateUserLikes = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.log("no user found.");
+    }
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        totalSwipes: 0,
+        totalLikedSongs: 0,
+      });
+    }
+
+    //updates document info
+    //automatically creates the users doc if it doesnt exist
+    await updateDoc(userRef, {
+      totalLikedSongs: increment(1),
+    });
+    console.log("DEBUG: like")
+  };
 
   return (
     <div className="container">
@@ -255,6 +310,7 @@ const LowPopularityTrack = ({ user }) => {
               onClick={() => {
                 setLoading(true);
                 fetchRandomLowPopularityTrack();
+                updateUserSwipes();
               }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
             >
@@ -276,7 +332,14 @@ const LowPopularityTrack = ({ user }) => {
       <div>
         <Login />
         {track && (
-          <button onClick={() => saveSong(user, track)}>Like this Song</button>
+          <button
+            onClick={() => {
+              saveSong(user, track);
+              updateUserLikes();
+            }}
+          >
+            Like this Song
+          </button>
         )}
       </div>
     </div>
