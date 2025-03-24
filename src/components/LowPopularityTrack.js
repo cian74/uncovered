@@ -7,15 +7,17 @@ import "../App.css";
 
 const LowPopularityTrack = ({ user }) => {
   const [track, setTrack] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); //loading set to true initially
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState("");
 
+  //stores visited tracks. persists when re rendered.
   const visited = useRef([]);
 
   useEffect(() => {
     const getSpotifyToken = async () => {
       try {
+        //https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
         const { data } = await axios.post(
           "https://accounts.spotify.com/api/token",
           "grant_type=client_credentials",
@@ -30,6 +32,8 @@ const LowPopularityTrack = ({ user }) => {
             },
           }
         );
+        console.log("data:", data);
+        //stores token in accessToken state.
         setAccessToken(data.access_token);
       } catch (err) {
         console.error("Error getting Spotify token:", err);
@@ -39,6 +43,7 @@ const LowPopularityTrack = ({ user }) => {
     getSpotifyToken();
   }, []);
 
+  //function that fetches a track with low popularity
   const fetchRandomLowPopularityTrack = async () => {
     if (!accessToken) return;
 
@@ -75,20 +80,26 @@ const LowPopularityTrack = ({ user }) => {
         "new-weird-america",
         "circuit-bending",
       ];
+
+      //selects a random genre
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
 
+      //searches for arists in genre
       const { data: artistData } = await axios.get(
         `https://api.spotify.com/v1/search?q=genre:${randomGenre}&type=artist&limit=50`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
+      //filters through artists with less than 5000 followers
       const lowFollowerArtists = artistData.artists.items.filter(
         (artist) => artist.followers.total < 5000
       );
+      //retries if no artists are found
       if (lowFollowerArtists.length === 0)
         return fetchRandomLowPopularityTrack();
 
+      //selects a random artist from list
       const shuffledArtists = lowFollowerArtists.sort(
         () => 0.5 - Math.random()
       );
@@ -98,32 +109,41 @@ const LowPopularityTrack = ({ user }) => {
         `Selected artist: ${randomArtist.name} (Followers: ${randomArtist.followers.total})`
       );
 
+      //fetches aritsts albums
       const { data: albums } = await axios.get(
         `https://api.spotify.com/v1/artists/${randomArtist.id}/albums?limit=50`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
+      //retries if no albums are found
       if (albums.items.length === 0) return fetchRandomLowPopularityTrack();
 
+      //chooses random album from list
       const randomAlbum =
         albums.items[Math.floor(Math.random() * albums.items.length)];
 
+      //gets tracks from album
       const { data: albumTracks } = await axios.get(
         `https://api.spotify.com/v1/albums/${randomAlbum.id}/tracks?limit=50`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
+      //if no tracks are found it retries
       if (albumTracks.items.length === 0)
         return fetchRandomLowPopularityTrack();
 
+      //selects random track from album
       const randomTrackId =
         albumTracks.items[Math.floor(Math.random() * albumTracks.items.length)]
           .id;
 
+      //if the track has been visited already it retries
       if (visited.current.includes(randomTrackId)) {
         return fetchRandomLowPopularityTrack();
       }
 
+      //retrieves track details
+      //Track: name, id, popularity,artists,
       const { data: fullTrackDetails } = await axios.get(
         `https://api.spotify.com/v1/tracks/${randomTrackId}`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -136,14 +156,18 @@ const LowPopularityTrack = ({ user }) => {
       );
       console.log(`Track popularity: ${fullTrackDetails.popularity}`);
 
+      //checks if track has popularity score <= 5
       if (fullTrackDetails.popularity <= 5) {
+        //pushes current track details 
         visited.current.push({
           id: fullTrackDetails.id,
-          name: fullTrackDetails.name
+          name: fullTrackDetails.name,
         });
+        //sets track details to display 
         setTrack(fullTrackDetails);
         console.log("visited:", visited.current);
       } else {
+        //retries if track has higher popularity score
         return fetchRandomLowPopularityTrack();
       }
     } catch (err) {
@@ -151,18 +175,18 @@ const LowPopularityTrack = ({ user }) => {
       setError(`Error: ${err.message}`);
     }
 
+
     setLoading(false);
   };
 
+  //fetches track when access token is set
   useEffect(() => {
     if (accessToken) fetchRandomLowPopularityTrack();
   }, [accessToken]);
 
-
   return (
     <div className="container">
       <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-md">
-
         {loading ? (
           <div className="text-center">
             <p className="text-gray-600">Searching the depths of Spotify...</p>
@@ -250,11 +274,11 @@ const LowPopularityTrack = ({ user }) => {
         )}
       </div>
       <div>
-    <Login />
-    {track && (
-      <button onClick={() => saveSong(user, track)}>Like this Song</button>
-    )}
-  </div>
+        <Login />
+        {track && (
+          <button onClick={() => saveSong(user, track)}>Like this Song</button>
+        )}
+      </div>
     </div>
   );
 };
