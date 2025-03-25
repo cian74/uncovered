@@ -26,7 +26,7 @@ const PopularityGauge = ({ popularity }) => {
             .attr("y", (height * popularity) / 100) 
             .attr("width", width)
             .attr("height", height - (height * popularity) / 100)
-            .attr("fill", "green");
+            .attr("fill", "#EF5B5B");
         
         svg.append("text")
             .attr("x", width / 2)
