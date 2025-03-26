@@ -38,6 +38,10 @@ const NavigationBar = () => {
           )}
         </Nav>
         </Nav.Link>
+        <Nav.Link as={Link} to="/statistics" >
+        Stats
+
+        </Nav.Link>
       </Container>
     </Navbar>
   );

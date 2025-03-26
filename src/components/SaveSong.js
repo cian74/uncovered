@@ -11,7 +11,7 @@ const saveSong = async (user, track) => {
     await addDoc(collection(db, "likedSongs"), {
       userId: user.uid,
       trackName: track.name,
-      artist: track.artists.map(a => a.name).join(", "),
+      artist: track.artists.map((a) => a.name).join(", "), //can be multiple artists featured
       album: track.album.name,
       image: track.album.images[0]?.url,
       spotifyUrl: track.external_urls.spotify,

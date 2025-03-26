@@ -5,6 +5,7 @@ import NavigationBar from "./components/NavBar";
 import LowPopulariyTrack from "./components/LowPopularityTrack";
 import LikedSongs from "./components/LikedSongs";
 import Login from "./components/Login";
+import Statistics from "./components/Statistics";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,6 +24,7 @@ function App() {
       <NavigationBar user={user} />
       <Routes>
         <Route path="/" element={<LowPopulariyTrack user={user} />} />
+        <Route path="/statistics" element={<Statistics user={user}/>} />
         <Route path="/liked-songs" element={<LikedSongs user={user} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
       </Routes>
