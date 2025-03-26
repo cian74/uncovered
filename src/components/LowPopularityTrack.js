@@ -7,7 +7,7 @@ import "../App.css";
 import { getAuth } from "firebase/auth";
 import { getDoc, setDoc, updateDoc, doc, increment } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { auth } from "../firebaseConfig";
+import genres from "../genres.json";
 
 const LowPopularityTrack = ({ user }) => {
   const [track, setTrack] = useState(null);
@@ -55,36 +55,6 @@ const LowPopularityTrack = ({ user }) => {
     setError(null);
 
     try {
-      const genres = [
-        "ambient",
-        "experimental",
-        "noise",
-        "drone",
-        "field-recording",
-        "free-folk",
-        "free-jazz",
-        "sound-art",
-        "musique-concrete",
-        "lowercase",
-        "outsider",
-        "lo-fi",
-        "found-sound",
-        "avant-garde",
-        "minimal-techno",
-        "deep-techno",
-        "experimental",
-        "psychedelic",
-        "dark-ambient",
-        "vaporwave",
-        "indie-folk",
-        "psychedelic-folk",
-        "freak-folk",
-        "slowcore",
-        "post-minimalism",
-        "new-weird-america",
-        "circuit-bending",
-      ];
-
       //selects a random genre
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
@@ -97,7 +67,7 @@ const LowPopularityTrack = ({ user }) => {
 
       //filters through artists with less than 5000 followers
       const lowFollowerArtists = artistData.artists.items.filter(
-        (artist) => artist.followers.total < 5000
+        (artist) => artist.followers.total < 5000 
       );
       //retries if no artists are found
       if (lowFollowerArtists.length === 0)
