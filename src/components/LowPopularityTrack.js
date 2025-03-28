@@ -197,7 +197,7 @@ const LowPopularityTrack = ({ user }) => {
     if (!userSnap.exists()) {
       await setDoc(userRef, {
         totalSwipes: 0,
-        totalLikedSongs: 0,
+        totalLikedSongs: 1,
       });
     }
 

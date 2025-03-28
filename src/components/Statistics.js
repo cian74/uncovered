@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where, } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -21,13 +21,22 @@ const Statistics = () => {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
 
+        let totalSwipes = 0;
+        let totalLikedSongs = 0;
+
         if (userSnap.exists()) {
           const userData = userSnap.data();
-          setStats(userData);
-          console.log("userData: ", userData);
-        } else {
-          console.log("No stats found.");
+          totalSwipes = userData.totalSwipes || 0;
         }
+
+        //query to db
+        const likedSongsRef = collection(db, "likedSongs");
+        const q = query(likedSongsRef, where("userId", "==", user.uid));
+        const likedSongsSnap = await getDocs(q);
+        totalLikedSongs = likedSongsSnap.size;
+
+        setStats({ totalSwipes, totalLikedSongs });
+        console.log("user stats", totalLikedSongs, totalSwipes);
       } catch (error) {
         console.error("Error fetching user stats:", error);
       } finally {
