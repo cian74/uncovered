@@ -8,10 +8,10 @@ const LikedSongs = ({ user }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if(!user)  {
-        setSongList([]);
-        return; 
-    }   
+    if (!user) {
+      setSongList([]);
+      return;
+    }
     const fetchLikedSongs = async () => {
       try {
         const auth = getAuth();
@@ -51,7 +51,9 @@ const LikedSongs = ({ user }) => {
 
   return (
     <div className="container">
-      <h2 className="text-xl font-semibold mb-4">Your Liked Songs</h2>
+      <h2 className="text-xl font-semibold mb-4 pt-4 bg-red-300">
+        Your Liked Songs
+      </h2>
 
       {loading ? (
         <p>Loading...</p>

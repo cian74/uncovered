@@ -53,6 +53,7 @@
 
 .container {
   display: flex;
+  padding-top: 70px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;  /* Align children to the top */
@@ -116,10 +117,15 @@ nav ul li a:hover {
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+img.rounded-circle {
+  background-color: #EF5B5B;
+  border-radius: 50%;
 }
