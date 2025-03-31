@@ -15,7 +15,9 @@ const NavigationBar = () => {
   }, [auth]);
 
   return (
-    <Navbar bg="light" expand="lg" className="px-4">
+    <Navbar className="px-4 text-[#50d71e]" style={{
+      paddingBottom: "20px"
+    }}>
       <Container
         className="navcon"
         fluid
@@ -23,10 +25,11 @@ const NavigationBar = () => {
           display: "flex",
           width: "100%",
           justifyContent: "space-between",
-          paddingTop: "25px"
+          paddingTop: "25px",
+          margin: "30px",
         }}
       >
-        <Navbar.Brand as={Link} to="/" className="fs-3 fw-bold">
+        <Navbar.Brand as={Link} to="/" className="fs-1 fw-bold">
           Uncover
         </Navbar.Brand>
 

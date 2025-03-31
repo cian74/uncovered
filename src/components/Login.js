@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { auth, provider } from "../firebaseConfig";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, signOut, createUserWithEmailAndPassword,} from "firebase/auth";
 
 const Login = ({ setUser }) => {
   const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const user = auth.currentUser;
 
   const handleLogin = async () => {
@@ -14,6 +16,20 @@ const Login = ({ setUser }) => {
     }
   };
 
+  const handleSignUp = async () => {
+    if(!email || !password) {
+      setError("Email and password req.");
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+      setUser(userCredential.user);
+    } catch (error) {
+     setError(error); 
+    }
+  }
+
+  
   const handleLogout = async () => {
     try {
       await signOut(auth);
