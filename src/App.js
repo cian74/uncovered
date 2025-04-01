@@ -6,6 +6,7 @@ import LowPopulariyTrack from "./components/LowPopularityTrack";
 import LikedSongs from "./components/LikedSongs";
 import Login from "./components/Login";
 import Statistics from "./components/Statistics";
+import SignUp from "./components/SignUp";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/statistics" element={<Statistics user={user}/>} />
         <Route path="/liked-songs" element={<LikedSongs user={user} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<SignUp/>}></Route>
       </Routes>
     </Router>
   );

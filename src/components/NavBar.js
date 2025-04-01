@@ -15,9 +15,12 @@ const NavigationBar = () => {
   }, [auth]);
 
   return (
-    <Navbar className="px-4 text-[#50d71e]" style={{
-      paddingBottom: "20px"
-    }}>
+    <Navbar
+      className="px-4 text-[#50d71e]"
+      style={{
+        paddingBottom: "20px",
+      }}
+    >
       <Container
         className="navcon"
         fluid
@@ -61,9 +64,12 @@ const NavigationBar = () => {
               marginLeft: "60px",
               marginRight: "40px",
               border: "3px solid #d8ff0a",
-              padding: "7px"
+              padding: "7px",
             }}
           />
+        </Nav.Link>
+        <Nav.Link as={Link} to="/signup" className="btn">
+            Sign Up
         </Nav.Link>
       </Container>
     </Navbar>

@@ -16,7 +16,8 @@ const saveSong = async (user, track) => {
       image: track.album.images[0]?.url,
       spotifyUrl: track.external_urls.spotify,
     });
-    alert("Song saved!");
+    //alert("Song saved!");
+    //TODO: add popup card.
   } catch (error) {
     console.error("Error saving song:", error);
   }
