@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -16,7 +16,6 @@ const NavigationBar = () => {
 
   return (
     <Navbar
-      className="px-4 text-[#50d71e]"
       style={{
         paddingBottom: "20px",
       }}
@@ -32,7 +31,7 @@ const NavigationBar = () => {
           margin: "30px",
         }}
       >
-        <Navbar.Brand as={Link} to="/" className="fs-1 fw-bold">
+        <Navbar.Brand as={Link} to="/"> 
           Uncover
         </Navbar.Brand>
 
@@ -68,7 +67,7 @@ const NavigationBar = () => {
             }}
           />
         </Nav.Link>
-        <Nav.Link as={Link} to="/signup" className="btn">
+          <Nav.Link as={Link} to="/signup" className="btn">
             Sign Up
         </Nav.Link>
       </Container>

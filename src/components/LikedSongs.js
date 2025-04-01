@@ -50,20 +50,19 @@ const LikedSongs = ({ user }) => {
   }, []);
 
   return (
-    <div className="container">
-      <h2 className="text-xl font-semibold mb-4 pt-4 bg-red-300">
-        Your Liked Songs
-      </h2>
+    <div className="liked-container">
+      <h2>Your Liked Songs</h2>
 
       {loading ? (
         <p>Loading...</p>
       ) : songList.length === 0 ? (
         <p>No liked songs found.</p>
       ) : (
-        <ul className="list-disc pl-5">
+        <ul className="like-list">
           {songList.map((song) => (
-            <li key={song.id}>
-              <strong>{song.trackName}</strong> by {song.artist}
+            <li className="liked-item" key={song.id}>
+                <img className="likedsong-image" src={song.image} />
+                <strong className="like-text">{song.trackName}</strong> by {song.artist}
             </li>
           ))}
         </ul>

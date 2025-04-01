@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import { BrowserRouter } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Card } from "react-bootstrap";
 
@@ -9,6 +7,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
@@ -52,5 +51,4 @@ const SignUp = () => {
     </Card>
   );
 };
-
 export default SignUp;

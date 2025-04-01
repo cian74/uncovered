@@ -19,7 +19,7 @@ const PopularityGauge = ({ popularity }) => {
             .attr("y", 0)
             .attr("width", width)
             .attr("height", height)
-            .attr("fill", "#ddd");
+            .attr("fill", "#d8ff0a");
 
         svg.append("rect")
             .attr("x", 0)

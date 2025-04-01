@@ -37,6 +37,7 @@
   }
 }
 
+/* track details */
 .track-layout {
   display: flex;
   flex-direction: row;  /* Ensure items are aligned horizontally */
@@ -59,19 +60,20 @@
   justify-content: flex-start;  /* Align children to the top */
 }
 
+/* navbar */
 nav {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  background-color: #9046CF; 
-  color: white;
+  background-color: #EF5B5B; 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 50;
+  border-bottom: 3px solid #F6F740;
 }
 
 nav h1 {
@@ -98,9 +100,10 @@ nav ul li a:hover {
 .navbar-brand {
   color: white;
   text-decoration: none;
-  font-size: 150%;
+  font-size: 200%;
 }
 
+/* loading animation */
 .loader {
   margin: 20px auto;
   width: 40px;
@@ -115,7 +118,6 @@ nav ul li a:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 .fade-in {
   animation: fadeIn 1.2s ease-in-out;
 }
@@ -125,6 +127,7 @@ nav ul li a:hover {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* circle images on navbar */
 img.rounded-circle {
   background-color: #EF5B5B;
   border-radius: 50%;
@@ -132,4 +135,47 @@ img.rounded-circle {
 
 .signup-container {
   background-color:#F6F740;
+}
+
+/* liked songs*/
+ul {
+  list-style-type: none;
+}
+
+.liked-container {
+  display: flex;
+  padding-top: 70px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.liked-item{
+  gap: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.likedsong-image{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px; /* Optional: adds rounded corners */
+}
+
+/*buttons */
+.btn {
+  flex-direction: column;
+  background-color: #F6F740;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 7.5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.stats-card{
+  background-color: #F6F740;
 }

@@ -1,4 +1,3 @@
-- add sign up 
 - sign in selector
 - change color scheme
     BASE colour purple - 9046CF
@@ -16,16 +15,21 @@
     total swipes
     favourite genre
 
-- add more genres (1800 ish)
-- store seperately to js file.
 - player for track
     spotify playback sdk(????)
 
 - add to spotify playlist from liked songs
 - fix home page interface
-    colors
     buttons
     navigation - navbar bottom or top.
-    font
     spinning particle things
+
+- sign up page Card.
+
+- "added to liked songs" pop up
+
+- home page ui create "main-button" style
+
+- logged in default profile picture.
+
 

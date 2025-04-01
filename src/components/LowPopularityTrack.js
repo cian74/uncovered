@@ -55,6 +55,7 @@ const LowPopularityTrack = ({ user }) => {
     setError(null);
 
     try {
+      //https://gist.github.com/andytlr/4104c667a62d8145aa3a
       //selects a random genre
       const randomGenre = genres[Math.floor(Math.random() * genres.length)];
       console.log(`Searching for artists in genre: ${randomGenre}`);
@@ -211,7 +212,7 @@ const LowPopularityTrack = ({ user }) => {
 
   return (
     <div className="container">
-      <div className="max-w-2xl w-full p-6 bg-white rounded-lg shadow-md">
+      <div> 
         {loading ? (
           <div className="text-center">
             <p className="text-gray-600">Searching the depths of Spotify...</p>
@@ -219,11 +220,10 @@ const LowPopularityTrack = ({ user }) => {
             <div className="loader"></div>
           </div>
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div>
             <p>{error}</p>
             <button
               onClick={() => fetchRandomLowPopularityTrack()}
-              className="mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             >
               Try Again
             </button>
@@ -242,7 +242,6 @@ const LowPopularityTrack = ({ user }) => {
                 <img
                   src={track.album.images[0].url}
                   alt={track.album.name}
-                  className="w-64 h-64 object-cover rounded-md shadow-lg"
                 />
               )}
             </div>
@@ -250,7 +249,7 @@ const LowPopularityTrack = ({ user }) => {
             {/* Track Details */}
             <div className="track-details">
               <h2 className="text-xl font-semibold">{track.name}</h2>
-              <h3 className="text-md text-gray-700 mb-3">
+              <h3>
                 by {track.artists.map((a) => a.name).join(", ")}
               </h3>
               <p className="text-sm text-gray-500 mb-1">

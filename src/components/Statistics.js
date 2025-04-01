@@ -1,7 +1,15 @@
-import { collection, doc, getDoc, getDocs, query, where, } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Card } from "react-bootstrap";
 
 const Statistics = () => {
   const [stats, setStats] = useState({ totalSwipes: 0, totalLikedSongs: 0 });
@@ -55,12 +63,17 @@ const Statistics = () => {
         <p>Loading stats...</p>
       ) : (
         <div>
-          <p>
-            <strong>Total Swipes:</strong> {stats.totalSwipes}
-          </p>
-          <p>
-            <strong>Liked Songs:</strong> {stats.totalLikedSongs}
-          </p>
+          <Card className="stats-card">
+            <div>
+              <strong>Total Swipes:</strong> {stats.totalSwipes}
+            </div>
+          </Card>
+          <br></br>
+          <Card className="stats-card">
+            <div>
+              <strong>Liked Songs:</strong> {stats.totalLikedSongs}
+            </div>
+          </Card>
         </div>
       )}
     </div>
