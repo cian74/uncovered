@@ -47,7 +47,7 @@ const LikedSongs = ({ user }) => {
       }
     };
     fetchLikedSongs();
-  }, []);
+  }, [user]);
 
   return (
     <div className="liked-container">

@@ -68,7 +68,7 @@ const LowPopularityTrack = ({ user }) => {
 
       //filters through artists with less than 5000 followers
       const lowFollowerArtists = artistData.artists.items.filter(
-        (artist) => artist.followers.total < 5000 
+        (artist) => artist.followers.total < 5000
       );
       //retries if no artists are found
       if (lowFollowerArtists.length === 0)
@@ -207,12 +207,12 @@ const LowPopularityTrack = ({ user }) => {
     await updateDoc(userRef, {
       totalLikedSongs: increment(1),
     });
-    console.log("DEBUG: like")
+    console.log("DEBUG: like");
   };
 
   return (
     <div className="container">
-      <div> 
+      <div>
         {loading ? (
           <div className="text-center">
             <p className="text-gray-600">Searching the depths of Spotify...</p>
@@ -222,9 +222,7 @@ const LowPopularityTrack = ({ user }) => {
         ) : error ? (
           <div>
             <p>{error}</p>
-            <button
-              onClick={() => fetchRandomLowPopularityTrack()}
-            >
+            <button onClick={() => fetchRandomLowPopularityTrack()}>
               Try Again
             </button>
           </div>
@@ -239,19 +237,14 @@ const LowPopularityTrack = ({ user }) => {
 
               {/* Album Cover */}
               {track.album.images.length > 0 && (
-                <img
-                  src={track.album.images[0].url}
-                  alt={track.album.name}
-                />
+                <img src={track.album.images[0].url} alt={track.album.name} />
               )}
             </div>
 
             {/* Track Details */}
             <div className="track-details">
               <h2 className="text-xl font-semibold">{track.name}</h2>
-              <h3>
-                by {track.artists.map((a) => a.name).join(", ")}
-              </h3>
+              <h3>by {track.artists.map((a) => a.name).join(", ")}</h3>
               <p className="text-sm text-gray-500 mb-1">
                 From the album: {track.album.name}
               </p>
@@ -259,10 +252,13 @@ const LowPopularityTrack = ({ user }) => {
 
             {/* Audio Preview */}
             {track.preview_url && (
-              <audio controls className="w-full mt-4">
-                <source src={track.preview_url} type="audio/mpeg" />
-                Your browser does not support the audio element.
-              </audio>
+              <div>
+                <p>Play: </p>
+                <audio controls className="w-full mt-4" autoPlay={false}>
+                  <source src={track.preview_url} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
             )}
 
             {/* Spotify Link */}
