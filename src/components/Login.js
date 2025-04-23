@@ -16,6 +16,7 @@ const Login = ({ setUser }) => {
     }
   };
 
+  //todo: remove dead code 
   const handleSignUp = async () => {
     if(!email || !password) {
       setError("Email and password req.");
@@ -42,11 +43,10 @@ const Login = ({ setUser }) => {
     <div>
       {user ? (
         <>
-          <p>Welcome, {user.displayName}!</p>
-          <button onClick={handleLogout}>Logout</button>
+          <button className="btn" onClick={handleLogout}>Logout</button>
         </>
       ) : (
-        <button onClick={handleLogin}>Login with Google</button>
+        <button className="btn" onClick={handleLogin}>Login with Google</button>
       )}
       {error && <p>{error}</p>}
     </div>

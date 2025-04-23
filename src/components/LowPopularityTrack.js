@@ -266,47 +266,50 @@ const LowPopularityTrack = ({ user }) => {
               href={track.external_urls.spotify}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+              className="song-link"
             >
               Listen on Spotify
             </a>
-
-            <button
-              onClick={() => {
-                setLoading(true);
-                fetchRandomLowPopularityTrack();
-                updateUserSwipes();
-              }}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-            >
-              Discover Another Track
-            </button>
           </div>
         ) : (
           <div className="text-center">
             <p className="mb-4">No obscure tracks found. Try again!</p>
             <button
               onClick={() => fetchRandomLowPopularityTrack()}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            
             >
-              Start Discovery
             </button>
           </div>
         )}
       </div>
-      <div>
-        <Login />
-        {track && (
-          <button
-            onClick={() => {
-              saveSong(user, track);
-              updateUserLikes();
-            }}
-          >
-            Like this Song
-          </button>
-        )}
-      </div>
+      {track && (
+  <div className="action-buttons">
+    {/* Like Button */}
+    <button
+  className="icon-button"
+  onClick={() => {
+    saveSong(user, track);
+    updateUserLikes();
+  }}
+>
+  <img src="/heart1.png" alt="Like" />
+</button>
+
+<button
+  className="icon-button"
+  onClick={() => {
+    setLoading(true);
+    fetchRandomLowPopularityTrack();
+    updateUserSwipes();
+  }}
+>
+  <img src="/skip.png" alt="Skip" />
+</button>
+  </div>
+)}
+
+{/* Logout (underneath buttons) */}
+<Login />
     </div>
   );
 };
