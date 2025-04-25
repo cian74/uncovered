@@ -154,6 +154,9 @@ ul {
   gap: 10px;
   padding: 10px;
   display: flex;
+  background-color: #F6F740;
+  border-radius: 10px;
+  margin-bottom: 10px;
   align-items: center;
 }
 .likedsong-image{
@@ -292,4 +295,16 @@ ul {
   font-size: 1rem;
   text-decoration: none;
   color: #9046CF;
+}
+
+.stats-card {
+  background-color: #F6F740;
+  border-radius: 10px;
+}
+
+.chart-container {
+  background-color: #F6F740; 
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
