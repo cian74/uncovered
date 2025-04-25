@@ -8,7 +8,6 @@
 
   text -?? neon green - BAFF29
 
-- make liked songs page more readable
 - stats page
   rendering d3 graphs when stats are fetched.
   favourite genre
@@ -22,12 +21,11 @@
 - UI Home page
   spinning particle things
 
-- sign up page Card.
-
 - "added to liked songs" pop up
 
 - logged in default profile picture.
 
 - delete a song from liked songs
+  liked songs background color
 
-- reloading issue on likedsongs
+- welcome page

@@ -165,6 +165,7 @@ const LowPopularityTrack = ({ user }) => {
 
     if (!user) {
       console.log("no user found");
+      return;
     }
 
     const userRef = doc(db, "users", user.uid);
@@ -191,6 +192,7 @@ const LowPopularityTrack = ({ user }) => {
 
     if (!user) {
       console.log("no user found.");
+      return;
     }
 
     const userRef = doc(db, "users", user.uid);
