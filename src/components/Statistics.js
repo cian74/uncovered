@@ -17,6 +17,7 @@ const Statistics = () => {
   const [averageSwipes, setAverageSwipes] = useState(0);
   const [loading, setLoading] = useState(true);
   const graphRef = useRef();
+  const pieChartRef = useRef();
 
   useEffect(() => {
     const auth = getAuth();
@@ -77,8 +78,13 @@ const Statistics = () => {
       {label: "Avg User", value: averageSwipes},
     ];
 
-    const width = 300;
-    const height = 200;
+    const pieData = [
+      { label: "Liked Songs", value: stats.totalLikedSongs },
+      { label: "Total Swipes", value: stats.totalSwipes - stats.totalLikedSongs }, // Remaining swipes
+    ];
+
+    const width = 600;
+    const height = 400;
     const margin = { top: 30, right: 30, bottom: 30, left: 40 };
 
     d3.select(graphRef.current).selectAll("*").remove(); // Clear existing
@@ -104,11 +110,13 @@ const Statistics = () => {
     svg
       .append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
+      .style("font", "20px Syne, sans-serif")
       .call(d3.axisBottom(x));
 
     svg
       .append("g")
       .attr("transform", `translate(${margin.left},0)`)
+      .style("font", "20px Syne, sans-serif")
       .call(d3.axisLeft(y));
 
     svg
@@ -119,7 +127,7 @@ const Statistics = () => {
       .attr("y", (d) => y(d.value))
       .attr("height", (d) => y(0) - y(d.value))
       .attr("width", x.bandwidth())
-      .attr("fill", "#9046CF");
+      .attr("fill", "#F6F740");
 
     svg
       .selectAll(".label")
@@ -129,6 +137,43 @@ const Statistics = () => {
       .attr("y", (d) => y(d.value) - 5)
       .attr("text-anchor", "middle")
       .text((d) => Math.round(d.value));
+
+      const radius = Math.min(width, height) / 3;
+      const pie = d3.pie().value((d) => d.value);
+      const arc = d3.arc().outerRadius(radius - 10).innerRadius(0);
+      const color = d3.scaleOrdinal(["#F6F740", "#EF5B5B"]);
+  
+      const pieSvg = d3
+        .select(pieChartRef.current)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2},${height / 2})`);
+  
+      const pieArcs = pieSvg
+        .selectAll(".arc")
+        .data(pie(pieData))
+        .join("g")
+        .attr("class", "arc");
+  
+      pieArcs
+        .append("path")
+        .attr("d", arc)
+        .attr("fill", (d) => color(d.data.label))
+        .attr("opacity", 0) 
+        .transition() // Animate the pie slices
+        .duration(1000)
+        .attr("opacity", 1); 
+  
+      pieArcs
+        .append("text")
+        .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "20px")
+        .style("fill", "#000")
+        .text((d) => `${Math.round(d.data.value)}`);
+
   }, [stats, averageSwipes, loading]);
 
   return (
@@ -152,8 +197,11 @@ const Statistics = () => {
     </div>
   </Card>
 </div>
+      <div className="pie-chart-container">
+          <h5 >Liked Songs vs Non-Liked Songs</h5>
+          <div ref={pieChartRef}></div>
+        </div>
         
-
         <div className="chart-container">
           <h5>Swipes vs Average User</h5>
           <div ref={graphRef}></div>

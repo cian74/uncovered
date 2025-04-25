@@ -194,9 +194,7 @@ ul {
   padding: 7.5px;
 }
 
-.stats-card{
-  background-color: #F6F740;
-}
+
 
 .action-buttons {
   display: flex;
@@ -303,10 +301,16 @@ ul {
 }
 
 .chart-container {
-  background-color: #F6F740; 
+  font-size: large;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h5 {
+  background-color: #F6F740;
+  padding: 1rem;
+  width: 30vh;
+  border-radius: 10px;
 }
 
 /*sign up*/
@@ -364,4 +368,23 @@ ul {
   background-color: #EF5B5B;
   background-color: #9046CF;
   color: #F6F740;
+}
+
+.stats-card{
+  width: 40vh;
+  background-color: #F6F740;
+}
+
+.pie-chart-container {
+  margin-bottom: 20px;
+  font-size: large;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.pie-chart-container h5{
+  border-radius: 10px;
+  background-color: #F6F740;
+  padding: 1rem;
+  width: 40vh;
 }
