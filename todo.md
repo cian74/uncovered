@@ -3,7 +3,7 @@
   BASE colour purple - 9046CF
 
   ui elements - orange - EF5B5B
-  ui elements - yellow - d8ff0a
+  ui elements - yellow - F6F740
   ui elements - turqouise - 34D1BF
 
   text -?? neon green - BAFF29

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { auth, provider } from "../firebaseConfig";
 import { signInWithPopup, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,} from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const Login = ({ setUser }) => {
   const [error, setError] = useState(null);
@@ -34,6 +35,8 @@ const Login = ({ setUser }) => {
   //have this handled on seperate page
   
   //todo: update sign up page styling 
+
+  //delete login failed text after login
   const handleEmailLogin = async () => {
     if(!email || !password) {
       setError("email and password required");
@@ -59,30 +62,18 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div>
+    <div className="login-buttons">
   {user ? (
     <button className="btn" onClick={handleLogout}>Logout</button>
   ) : (
     <>
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center"}}>
       <button className="btn" onClick={handleLogin}>Login with Google</button>
-
-      <div style={{ marginTop: "20px" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="input"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input"
-        />
-        <button className="btn" onClick={handleEmailLogin}>Login with Email</button>
-      </div>
+        <Link to="/email-login">
+          <button className="btn" onClick={handleEmailLogin}>Login with Email</button>
+        </Link>
+    </div>
+      
     </>
   )}
   {error && <p style={{ color: "red" }}>{error}</p>}

@@ -198,7 +198,7 @@ ul {
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 6rem;
   margin-top: 1rem;
 }
 
@@ -231,4 +231,59 @@ ul {
 .song-link {
   display: flex;
   justify-content: center;
+}
+
+.login-buttons {
+  gap: 6rem;
+}
+
+/*Email Login page*/
+
+.email-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.email-login-card {
+  background-color: #EF5B5B;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.large-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.rounded-input {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 10px 14px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+  background-color: #9046CF;
+  border: none;
+}
+
+.rounded-input::placeholder {
+  color: #F6F740; 
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.back-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #9046CF;
 }

@@ -8,6 +8,7 @@ import { getAuth } from "firebase/auth";
 import { getDoc, setDoc, updateDoc, doc, increment } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import genres from "../genres.json";
+import { Link } from "react-router-dom";
 
 const LowPopularityTrack = ({ user }) => {
   const [track, setTrack] = useState(null);
@@ -308,7 +309,7 @@ const LowPopularityTrack = ({ user }) => {
   </div>
 )}
 
-<Login />
+<Login as={Link} to="/login"/>
     </div>
   );
 };
