@@ -3,14 +3,28 @@ import { auth, provider } from "../firebaseConfig";
 import { signInWithPopup, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword,} from "firebase/auth";
 import { Card, Container, Button, Alert, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const EmailLogin = ({ setUser }) => {
+const EmailLogin = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = auth.currentUser;
+  const [user, setLocalUser] = useState(auth.currentUser);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+    if(firebaseUser){
+        setLocalUser(firebaseUser)
+        navigate("/");
+    }
+  });
 
+  return () => unsubscribe();
+
+  }, [navigate]);
+  
   //todo: remove dead code 
   const handleSignUp = async () => {
     if(!email || !password) {
@@ -19,7 +33,6 @@ const EmailLogin = ({ setUser }) => {
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth,email,password);
-      setUser(userCredential.user);
     } catch (error) {
      setError(error); 
     }
@@ -38,9 +51,9 @@ const EmailLogin = ({ setUser }) => {
     }
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userCredential.user);
+      setLocalUser(userCredential.user);
       setError(null);
-      
+      navigate("/");
     } catch (err) {
       setError("Login failed"); 
     }
