@@ -1,54 +1,61 @@
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Card } from "react-bootstrap";
+import { auth } from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSignUp = async () => {
+    if (!email || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+
     try {
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("user created:", userCredential.user);
-    } catch (error) {
-        console.error(error);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      setUser(userCredential.user);
+      setError(null);
+      navigate("/"); // redirect to home or dashboard
+    } catch (err) {
+      setError("Sign up failed. Try again.");
+      console.error(err);
     }
   };
+
   return (
-    <Card className="signup-card">
-      <div className="signup-container">
-        <h2>Sign Up</h2>
-        {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSignUp}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" target="/">
-            Sign Up
-          </button>
-        </form>
-      </div>
-    </Card>
+    <div className="signup-container">
+    <div className="signup-card">
+      <h2>Sign Up</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSignUp}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit" className="btn">
+          Create Account
+        </button>
+        <Link to="/" className="back-link">← Back to main login</Link>
+      </form>
+    </div>
+  </div>
+  
   );
 };
+
 export default SignUp;

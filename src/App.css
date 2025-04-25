@@ -173,7 +173,7 @@ ul {
   color: #9046CF;
   text-decoration: none;
   font-size: 18px;
-  font-family: "Syne", sans-serif; /* Add this line */
+  font-family: "Syne", sans-serif; 
   font-weight: bold;
   border-radius: 20px;
   border: none;
@@ -307,4 +307,61 @@ ul {
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*sign up*/
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9046CF;
+  height: 100vh;
+}
+
+.signup-card {
+  background-color: #F6F740;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.signup-card h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #EF5B5B;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-card input {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 10px 14px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+  border: none;
+  background-color: #EF5B5B;
+  font-family: "Syne", sans-serif;
+}
+
+.signup-card input:focus {
+  outline: none;
+  border: 2px solid #EF5B5B;
+}
+
+.signup-card input::placeholder {
+  color: #F6F740;
+  font-size: 1rem;
+}
+
+.signup-card button {
+  background-color: #EF5B5B;
+  background-color: #9046CF;
+  color: #F6F740;
 }
