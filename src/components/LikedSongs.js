@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebaseConfig";
+import { doc } from "firebase/firestore";
 
 const LikedSongs = ({ user }) => {
   const [songList, setSongList] = useState(null);
@@ -49,6 +50,19 @@ const LikedSongs = ({ user }) => {
     fetchLikedSongs();
   }, [user]);
 
+
+  const handleDelete = async (songId) => {
+    try{
+      const songRef = doc(db, "likedSongs", songId);
+      await deleteDoc(songRef);
+
+      console.log("song deleted", songId);  
+      setSongList(songList.filter((song)=> song.id !== songId));
+    } catch (err) {
+
+    }
+  };
+
   return (
     <div className="liked-container">
       <h2>Your Liked Songs</h2>
@@ -63,6 +77,12 @@ const LikedSongs = ({ user }) => {
             <li className="liked-item" key={song.id}>
                 <img className="likedsong-image" src={song.image} />
                 <strong className="like-text">{song.trackName}</strong> by {song.artist}
+                <button 
+                  className="delete-btn"
+                  onClick={() => handleDelete(song.id)}
+                >
+                  Delete
+                </button>
             </li>
           ))}
         </ul>

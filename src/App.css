@@ -150,6 +150,15 @@ ul {
   justify-content: flex-start;
 }
 
+.delete-btn {
+  background-color: #e74c3c;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: auto;
+  border: none;
+  font-family: "Syne", sans-serif;
+}
+
 .liked-item{
   gap: 10px;
   padding: 10px;
