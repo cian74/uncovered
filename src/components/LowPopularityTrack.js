@@ -308,7 +308,6 @@ const LowPopularityTrack = ({ user }) => {
   </div>
 )}
 
-{/* Logout (underneath buttons) */}
 <Login />
     </div>
   );
